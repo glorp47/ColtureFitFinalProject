@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151215185552) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "albums", force: :cascade do |t|
     t.integer  "band_id",    null: false
     t.string   "title",      null: false
@@ -24,9 +27,9 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "albums", ["band_id"], name: "index_albums_on_band_id"
-  add_index "albums", ["date_made"], name: "index_albums_on_date_made"
-  add_index "albums", ["title"], name: "index_albums_on_title"
+  add_index "albums", ["band_id"], name: "index_albums_on_band_id", using: :btree
+  add_index "albums", ["date_made"], name: "index_albums_on_date_made", using: :btree
+  add_index "albums", ["title"], name: "index_albums_on_title", using: :btree
 
   create_table "bands", force: :cascade do |t|
     t.integer  "fan_id",      null: false
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "bands", ["fan_id"], name: "index_bands_on_fan_id", unique: true
-  add_index "bands", ["genre"], name: "index_bands_on_genre"
+  add_index "bands", ["fan_id"], name: "index_bands_on_fan_id", unique: true, using: :btree
+  add_index "bands", ["genre"], name: "index_bands_on_genre", using: :btree
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "band_id",    null: false
@@ -47,8 +50,8 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "bookings", ["band_id"], name: "index_bookings_on_band_id"
-  add_index "bookings", ["gig_id"], name: "index_bookings_on_gig_id"
+  add_index "bookings", ["band_id"], name: "index_bookings_on_band_id", using: :btree
+  add_index "bookings", ["gig_id"], name: "index_bookings_on_gig_id", using: :btree
 
   create_table "fans", force: :cascade do |t|
     t.string   "email",           null: false
@@ -63,10 +66,10 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "fans", ["email"], name: "index_fans_on_email", unique: true
-  add_index "fans", ["location_zip"], name: "index_fans_on_location_zip"
-  add_index "fans", ["session_token"], name: "index_fans_on_session_token"
-  add_index "fans", ["username"], name: "index_fans_on_username"
+  add_index "fans", ["email"], name: "index_fans_on_email", unique: true, using: :btree
+  add_index "fans", ["location_zip"], name: "index_fans_on_location_zip", using: :btree
+  add_index "fans", ["session_token"], name: "index_fans_on_session_token", using: :btree
+  add_index "fans", ["username"], name: "index_fans_on_username", using: :btree
 
   create_table "gigs", force: :cascade do |t|
     t.integer  "venue_id",    null: false
@@ -77,9 +80,9 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "gigs", ["date"], name: "index_gigs_on_date"
-  add_index "gigs", ["title"], name: "index_gigs_on_title"
-  add_index "gigs", ["venue_id"], name: "index_gigs_on_venue_id"
+  add_index "gigs", ["date"], name: "index_gigs_on_date", using: :btree
+  add_index "gigs", ["title"], name: "index_gigs_on_title", using: :btree
+  add_index "gigs", ["venue_id"], name: "index_gigs_on_venue_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.integer  "fan_id",     null: false
@@ -91,7 +94,7 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "images", ["fan_id"], name: "index_images_on_fan_id"
+  add_index "images", ["fan_id"], name: "index_images_on_fan_id", using: :btree
 
   create_table "press_items", force: :cascade do |t|
     t.integer  "fan_id",     null: false
@@ -104,7 +107,7 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "press_items", ["fan_id"], name: "index_press_items_on_fan_id"
+  add_index "press_items", ["fan_id"], name: "index_press_items_on_fan_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.integer  "band_id",    null: false
@@ -117,10 +120,10 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "songs", ["album_id"], name: "index_songs_on_album_id"
-  add_index "songs", ["band_id"], name: "index_songs_on_band_id"
-  add_index "songs", ["date_made"], name: "index_songs_on_date_made"
-  add_index "songs", ["title"], name: "index_songs_on_title"
+  add_index "songs", ["album_id"], name: "index_songs_on_album_id", using: :btree
+  add_index "songs", ["band_id"], name: "index_songs_on_band_id", using: :btree
+  add_index "songs", ["date_made"], name: "index_songs_on_date_made", using: :btree
+  add_index "songs", ["title"], name: "index_songs_on_title", using: :btree
 
   create_table "venues", force: :cascade do |t|
     t.integer  "fan_id",     null: false
@@ -131,7 +134,7 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "venues", ["fan_id"], name: "index_venues_on_fan_id", unique: true
+  add_index "venues", ["fan_id"], name: "index_venues_on_fan_id", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.integer  "fan_id",     null: false
@@ -143,9 +146,9 @@ ActiveRecord::Schema.define(version: 20151215185552) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "videos", ["album_id"], name: "index_videos_on_album_id"
-  add_index "videos", ["date_made"], name: "index_videos_on_date_made"
-  add_index "videos", ["fan_id"], name: "index_videos_on_fan_id"
-  add_index "videos", ["title"], name: "index_videos_on_title"
+  add_index "videos", ["album_id"], name: "index_videos_on_album_id", using: :btree
+  add_index "videos", ["date_made"], name: "index_videos_on_date_made", using: :btree
+  add_index "videos", ["fan_id"], name: "index_videos_on_fan_id", using: :btree
+  add_index "videos", ["title"], name: "index_videos_on_title", using: :btree
 
 end
