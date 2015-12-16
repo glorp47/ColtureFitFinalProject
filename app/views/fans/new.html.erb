@@ -1,0 +1,39 @@
+<h1>New Fan</h1>
+
+<form action="<%= fans_url %>" method="post">
+    <input
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+    <label>Email
+      <input type="text" name="fan[email]">
+    </label>
+    <br>
+
+    <label>Password
+      <input type="password" name="fan[password]">
+    </label>
+    <br>
+
+    <label>Username
+      <input type="text" name="fan[username]">
+    </label>
+    <br>
+
+    <label>Location(ZIP)
+      <input type="text" name="fan[location_zip]">
+    </label>
+    <br>
+
+    <label>Select Account Type
+        <select name="fan[account_type]">
+      <option value="fan">Just a Fan</option>
+      <option value="band">In a Band</option>
+      <option value="venue">Promote a Venue</option>
+    </select>
+    </label>
+<br>
+
+    <input type="submit">
+</form>

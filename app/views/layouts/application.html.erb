@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ColtureFitProject</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <% if signed_in? %>
+  <p>Logged in as: <%= current_fan.email %></p>
+  <%= button_to "Sign Out", session_url, method: :delete %>
+  <% else %>
+  <%= link_to "Sign In", new_session_url %>
+  <%= link_to "Sign Up", new_fan_url %>
+<% end %>
+
+<% if flash[:errors] %>
+  <p><%= flash[:errors] %></p>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>
